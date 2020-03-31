@@ -24,7 +24,7 @@ for sentiment in sys.stdin:
         sent_list_sort.add(sentiment_value) #1
     else:
         if last_date_key:
-            print(('%s\t%s\t%s') % (last_date_key, sent_list_sort[], count_per_date)) #2
+            print(('%s\t%s\t%s') % (last_date_key, sent_list_sort[-1], count_per_date)) #2
         #aggregate_sentiment = sentiment_value #3
         last_date_key = this_date_key
         count_per_date = 1
