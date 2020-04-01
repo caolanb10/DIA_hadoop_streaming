@@ -1,7 +1,3 @@
-# pip install tweepy
-# pip install alpha_vantage
-# pip install quandl
-
 from alpha_vantage.timeseries import TimeSeries
 import alpha_vantage
 import tweepy
@@ -12,7 +8,6 @@ import pandas as pd
 import json
 from pymongo import MongoClient
 import re
-# pip install wordcloud
 from wordcloud import WordCloud
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
@@ -21,12 +16,12 @@ from textblob.sentiments import NaiveBayesAnalyzer
 import twitter_module as twt
 from sklearn.decomposition import LatentDirichletAllocation as LDA
 from sklearn.feature_extraction.text import CountVectorizer
-#%%time
 from pyLDAvis import sklearn as sklearn_lda
 from sklearn.cluster import KMeans
 import pickle
 import pyLDAvis
 import os
+from months import Months
 
 
 # # # # # # # # # # # # #
@@ -264,30 +259,7 @@ def tweet_date_format(trump_df_all):
     for i in trump_df_all['DATE']:
         yr.append(i[26:30])
         day.append(i[8:10])
-        if i[4:7] == 'Jan':
-            mnt.append('01')
-        elif i[4:7] == 'Feb':
-            mnt.append('02')
-        elif i[4:7] == 'Mar':
-            mnt.append('03')
-        elif i[4:7] == 'Apr':
-            mnt.append('04')
-        elif i[4:7] == 'May':
-            mnt.append('05')
-        elif i[4:7] == 'Jun':
-            mnt.append('06')
-        elif i[4:7] == 'Jul':
-            mnt.append('07')
-        elif i[4:7] == 'Aug':
-            mnt.append('08')
-        elif i[4:7] == 'Sep':
-            mnt.append('09')
-        elif i[4:7] == 'Oct':
-            mnt.append('10')
-        elif i[4:7] == 'Nov':
-            mnt.append('11')
-        elif i[4:7] == 'Dec':
-            mnt.append('12')
+        mnt.append(Months[i[4:7]])
     df_dts = pd.DataFrame({"Year": yr, "Month": mnt, "Day": day})
     new_dt = []
     for i in range(0,len(yr)):
@@ -330,11 +302,3 @@ def get_sentiment_nbayes(trump_df_clean):
         sentiment.append(blob.sentiment.classification)
     trump_df_clean['SENTIMENT_NB'] = sentiment
     return trump_df_clean
-
-
-
-
-
-
-
-
